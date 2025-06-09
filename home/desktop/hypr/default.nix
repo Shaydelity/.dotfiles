@@ -52,6 +52,21 @@ home.activation.qt-theme = lib.hm.dag.entryAfter ["writeBoundary"] ''
     run ${pkgs.libsForQt5.plasma-workspace}/bin/plasma-apply-colorscheme CatppuccinMochaMauve
 '';
 
+xdg.mimeApps = { # Defines Default
+    enable = true;
+    defaultApplications = {
+        "default-web-browser" = [ "vivaldi-stable.desktop" ];
+        "text/html" = [ "vivaldi-stable.desktop" ];
+        "x-scheme-handler/http" = [ "vivaldi-stable.desktop" ];
+        "x-scheme-handler/https" = [ "vivaldi-stable.desktop" ];
+        "x-scheme-handler/about" = [ "vivaldi-stable.desktop" ];
+        "x-scheme-handler/unknown" = [ "vivaldi-stable.desktop" ];
+
+        "text/plain" = [ "kate.desktop" ];
+        "text/html" = [ "firefox.desktop" ];
+    };
+};
+
 home = {
     sessionVariables = {
         EDITOR = "kate";
@@ -106,17 +121,7 @@ home.file.".config/hypr" = {
     recursive = true;
 };
 
-xdg.mimeApps = {
-    enable = true;
-    defaultApplications = {
-        "default-web-browser" = [ "vivaldi-stable.desktop" ];
-        "text/html" = [ "vivaldi-stable.desktop" ];
-        "x-scheme-handler/http" = [ "vivaldi-stable.desktop" ];
-        "x-scheme-handler/https" = [ "vivaldi-stable.desktop" ];
-        "x-scheme-handler/about" = [ "vivaldi-stable.desktop" ];
-        "x-scheme-handler/unknown" = [ "vivaldi-stable.desktop" ];
-    };
-};
+
 
 #wayland.windowManager.hyprland = {
 #    enable = true;

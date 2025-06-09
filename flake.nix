@@ -18,17 +18,17 @@
       url = "github:hyprwm/hyprland-plugins";
       inputs.hyprland.follows = "hyprland";
     };
-    split-monitor-workspaces = {
-      url = "github:Duckonaut/split-monitor-workspaces";
-      inputs.hyprland.follows = "hyprland";
-    };
+    #split-monitor-workspaces = {
+    #  url = "github:Duckonaut/split-monitor-workspaces";
+    #  inputs.hyprland.follows = "hyprland";
+    #};
     hypr-dynamic-cursors = {
         url = "github:VirtCode/hypr-dynamic-cursors";
         inputs.hyprland.follows = "hyprland";
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, nix-flatpak, hyprland, split-monitor-workspaces, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, nix-flatpak, hyprland, ... }@inputs: # split-monitor-workspaces
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
