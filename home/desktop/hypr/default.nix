@@ -24,6 +24,7 @@ home.packages = with pkgs; [
     easyeffects
     playerctl
     wl-clipboard
+    xclip # X11 Clipboard
     pamixer
     networkmanagerapplet
 
@@ -50,7 +51,6 @@ qt = {
 home.activation.qt-theme = lib.hm.dag.entryAfter ["writeBoundary"] ''
     run ${pkgs.libsForQt5.plasma-workspace}/bin/plasma-apply-colorscheme CatppuccinMochaMauve
 '';
-
 
 home = {
     sessionVariables = {
