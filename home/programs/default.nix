@@ -3,6 +3,5 @@
     ./kitty
     ./micro
     ./mpv
-    ./vscodium
   ];
 }

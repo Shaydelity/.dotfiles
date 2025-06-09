@@ -1,4 +1,6 @@
  # Shaydelity's NixOS Flake
 
-Create a folder called ".dotfiles" in your user's home folder and put these files in there to use my NixOS configuration.
-
+Name Explanation:
+1. Shaydelith: Main PC, Home PC
+2. Shaydelix: Framework (once I got one)
+3. Eclipse
