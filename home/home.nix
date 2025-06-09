@@ -43,10 +43,9 @@
     chromium
     vivaldi
     alvr
-    # dolphin
-    libsForQt5.dolphin
-    # ark
-    libsForQt5.ark
+    libsForQt5.dolphin # dolphin
+    libsForQt5.kate # kate
+    libsForQt5.ark # ark
     moonlight-qt
     gimp
     libreoffice-fresh
