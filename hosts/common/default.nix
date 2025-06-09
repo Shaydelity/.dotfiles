@@ -84,9 +84,6 @@ in
     isNormalUser = true;
     description = "Shayde";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-      kdePackages.kate
-    ];
   };
 
 

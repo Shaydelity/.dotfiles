@@ -17,14 +17,14 @@ wayland.windowManager.hyprland = {
 home.packages = with pkgs; [
     xdg-desktop-portal
     grim
-    slurp  # Screenshots
+    slurp  # Screenshot Cropping
     hyprlock
     swww
     pavucontrol
+    easyeffects
     playerctl
     wl-clipboard
     pamixer
-    hyprland-monitor-attached
     networkmanagerapplet
 
     # See hyprland config for applying qt theme.
