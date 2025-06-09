@@ -1,6 +1,6 @@
 { ... }:
 {
-xdg.configFile."micro/settings.json".text = ''
+home.file.".config/micro/settings.json".text = ''
 {
   "tabstospaces": true,
   "tabsize": 2,
@@ -8,7 +8,7 @@ xdg.configFile."micro/settings.json".text = ''
 }
 '';
 
-xdg.configFile."micro/bindings.json".text = ''
+home.file.".config/micro/bindings.json".text = ''
 {
   "Ctrl-S": "Save",
   "Ctrl-X": "Quit",

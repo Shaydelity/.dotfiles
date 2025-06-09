@@ -4,6 +4,5 @@
     ./micro
     ./mpv
     ./vscodium
-    ./gnupg
   ];
 }

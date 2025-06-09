@@ -9,31 +9,33 @@ let
 in
 
 {
-  imports = [
-    ./hardware.nix
-  ];
-
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # Use latest kernel.
+  # Latest kernel breaks nvidia drivers. Leave this commented out.
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
+
+  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  networking.firewall.enable = true;
+
+  # Configure network proxy if necessary
+  # networking.proxy.default = "http://user:password@proxy:port/";
+  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+
+  # Enable networking
+
   # Network
   networking.networkmanager.enable = true;
-  networking.firewall.enable = false;
-  # networking.firewall.allowedUDPPorts = [ ${services.tailscale.port} ];
-  networking.nameservers = [
-    "192.168.68.250"
-    "1.1.1.1"
-    "100.100.100.100"
-  ];
   services.resolved.enable = true;
 
-  # Locale options
+  # Locale
   time.timeZone = "Europe/Berlin";
-
   i18n.defaultLocale = "en_US.UTF-8";
+
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "de_DE.UTF-8";
     LC_IDENTIFICATION = "de_DE.UTF-8";
@@ -76,33 +78,22 @@ in
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   # Services
-  services.fprintd.enable = true;
-  services.sunshine = {
-    enable = false;
-    autoStart = true;
-    capSysAdmin = true;
-    openFirewall = true;
-  };
-
   services.flatpak.enable = true;
-  # VERY IMPORTANT:
-  # sudo tailscale up --operator=$USER
-  services.tailscale.enable = true;
-  services.blueman.enable = true;
-  services.syncthing = {
-    enable = true;
-    openDefaultPorts = true;
-    user = "samy";
+
+  users.users.shaydelity = {
+    isNormalUser = true;
+    description = "Shayde";
+    extraGroups = [ "networkmanager" "wheel" ];
+    packages = with pkgs; [
+      kdePackages.kate
+    ];
   };
 
-  users.users.samy = {
-    isNormalUser = true;
-    description = "Samy";
-    extraGroups = [ "networkmanager" "wheel" ];
-  };
 
   # Additional packages (nix search <pkg>)
   environment.systemPackages = with pkgs; [
+    micro
+    killall
   ];
 
   # Fonts
@@ -153,6 +144,6 @@ in
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "24.11"; # Did you read the comment?
+  system.stateVersion = "25.05"; # Did you read the comment?
 
 }

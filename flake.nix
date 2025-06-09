@@ -1,6 +1,6 @@
  
 {
-  description = "Zohiu's NixOS Flake";
+  description = "Shaydelity's NixOS Flake";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
@@ -26,53 +26,24 @@
         url = "github:VirtCode/hypr-dynamic-cursors";
         inputs.hyprland.follows = "hyprland";
     };
-
-    # Framework stuff
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    fw-fanctrl = {
-      url = "github:TamtamHero/fw-fanctrl/packaging/nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
-  outputs = { self, nixpkgs, home-manager, nix-flatpak, hyprland, split-monitor-workspaces, nixos-hardware, fw-fanctrl, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, nix-flatpak, hyprland, split-monitor-workspaces, ... }@inputs:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
     in {
       nixosConfigurations = {
-        zohiupc = nixpkgs.lib.nixosSystem {
+        shaydelith = nixpkgs.lib.nixosSystem {
           specialArgs = {inherit inputs;};
           modules = [
-            ./hosts/zohiupc
+            ./hosts/shaydelith
             home-manager.nixosModules.home-manager
 
             {
               home-manager.extraSpecialArgs = {inherit inputs;};
               home-manager.useUserPackages = true;
-              home-manager.users.samy = {
-                imports = [
-                  hyprland.homeManagerModules.default
-                  nix-flatpak.homeManagerModules.nix-flatpak
-                  ./home/home.nix
-                ];
-              };
-            }
-          ];
-        };
-
-        framework = nixpkgs.lib.nixosSystem {
-          specialArgs = {inherit inputs;};
-          modules = [
-            nixos-hardware.nixosModules.framework-13-7040-amd
-            fw-fanctrl.nixosModules.default
-            home-manager.nixosModules.home-manager
-            ./hosts/framework
-
-            {
-              home-manager.extraSpecialArgs = {inherit inputs;};
-              home-manager.useUserPackages = true;
-              home-manager.users.samy = {
+              home-manager.users.shaydelity = {
                 imports = [
                   hyprland.homeManagerModules.default
                   nix-flatpak.homeManagerModules.nix-flatpak

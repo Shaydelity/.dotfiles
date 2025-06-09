@@ -4,7 +4,7 @@ home.packages = with pkgs; [
     cava
 ];
 
-xdg.configFile."cava" = {
+home.file.".config/cava" = {
     source = ./config;
     recursive = true;
 };

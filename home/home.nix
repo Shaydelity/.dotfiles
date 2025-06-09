@@ -1,14 +1,16 @@
-{ pkgs, inputs, ... }: {
+{ pkgs, ... }: {
 
   imports = [
+    # hyprland.homeManagerModules.default
+    #./environment
     ./programs
     ./scripts
     ./desktop
   ];
 
   home = {
-    username = "samy";
-    homeDirectory = "/home/samy";
+    username = "shaydelity";
+    homeDirectory = "/home/shaydelity";
   };
 
   services.flatpak.remotes = [{
@@ -26,7 +28,9 @@
     "org.prismlauncher.PrismLauncher"
     "io.github.MakovWait.Godots"
     "com.github.tchx84.Flatseal"
+    "com.vscodium.codium"
   ];
+
 
   # Also need to rebuild nix to fix dolphin MIME
   home.packages = (with pkgs; [
@@ -37,80 +41,69 @@
     nemo-with-extensions
     firefox
     chromium
+    vivaldi
     alvr
-    bitwarden-desktop
-
+    # dolphin
     libsForQt5.dolphin
-    libsForQt5.kio-extras
-    libsForQt5.ffmpegthumbs
-
+    # ark
     libsForQt5.ark
-    libsForQt5.kate
     moonlight-qt
     gimp
     libreoffice-fresh
+    discord
     obs-studio
     obsidian
+    drawio
+    nextcloud-client
     signal-desktop
-    tidal-hifi
     blender
     blockbench
     bitwig-studio
     davinci-resolve
-    sqlitebrowser
-    trayscale
+    tenacity
+    # Don't uncomment! - Steam is installed in system config to allow system access.
+    # steam
     r2modman
-    audacity
-    qpwgraph
+    godot
 
     jellyfin-media-player
     gnome-network-displays
-    inkscape
 
     jetbrains.pycharm-community-bin
     jetbrains.idea-community-bin
 
     # Command line utils
     fish
+    wine
     wlr-randr
+    git
     nitch
-    neofetch
     wget
     rustup
     gnumake
-    catimg
     curl
     appimage-run
     sqlite
     (python312.withPackages (p: with p; [
       build
     ]))
-    gnupg
-    # pinentry
 
     # TUI apps
     micro
     nano
     btop
 
-    # Libs / Requirements
-
   ]);
 
   programs.git = {
     enable = true;
-    userName  = "Zohiu";
-    userEmail = "mail@zohiu.de";
+    userName  = "Shaydelity";
+    userEmail = "shaydedg@gmail.com";
     extraConfig = {
-      credential.helper = "${
-          pkgs.git.override { withLibsecret = true; }
-        }/bin/git-credential-libsecret";
-      commit.gpgsign = true;
-      user.signingkey = "F93EC485BC2ED258";
       init.defaultBranch = "main";
     };
   };
 
   programs.home-manager.enable = true;
-  home.stateVersion = "24.11";
+  home.stateVersion = "25.05";
 }
