@@ -1,6 +1,7 @@
 { config, lib, pkgs, ... }:
 let
   clipsync = pkgs.writeShellScriptBin "clipsync" ''
+    # https://github.com/hyprwm/Hyprland/issues/6132#issue-comment-2127153823
     #!/usr/bin/env sh
 
     insert() {

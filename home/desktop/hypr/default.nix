@@ -57,14 +57,13 @@ xdg.mimeApps = { # Defines Default
     enable = true;
     defaultApplications = {
         "default-web-browser" = [ "vivaldi-stable.desktop" ];
-        "text/html" = [ "vivaldi-stable.desktop" ];
         "x-scheme-handler/http" = [ "vivaldi-stable.desktop" ];
         "x-scheme-handler/https" = [ "vivaldi-stable.desktop" ];
         "x-scheme-handler/about" = [ "vivaldi-stable.desktop" ];
         "x-scheme-handler/unknown" = [ "vivaldi-stable.desktop" ];
 
         "text/plain" = [ "kate.desktop" ];
-        "text/html" = [ "firefox.desktop" ];
+        "text/html" = [ "vivaldi-stable.desktop" ];
     };
 };
 
