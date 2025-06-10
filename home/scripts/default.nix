@@ -1,9 +1,8 @@
 { config, lib, pkgs, ... }:
 let
+  # https://github.com/hyprwm/Hyprland/issues/6132#issue-comment-2127153823
+  #!/usr/bin/env sh
   clipsync = pkgs.writeShellScriptBin "clipsync" ''
-    # https://github.com/hyprwm/Hyprland/issues/6132#issue-comment-2127153823
-    #!/usr/bin/env sh
-
     insert() {
     value=$(cat)
     wValue="$(wl-paste)"
