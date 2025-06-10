@@ -3,7 +3,7 @@ let
   # https://github.com/hyprwm/Hyprland/issues/6132#issue-comment-2127153823
   #!/usr/bin/env sh
   clipsync = pkgs.writeShellScriptBin "clipsync" ''
-    #!/usr/bin/env sh
+    #!/usr/bin/env bash
     #
     # Two-way clipboard syncronization between Wayland and X11, with cliphy support!
     # !! Recommended use: Drop this file off @ /usr/local/bin/clipsync && make it executable
