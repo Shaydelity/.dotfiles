@@ -34,7 +34,7 @@ let
       # Add a small delay to ensure clipboard services are initialized
       sleep 1
 
-      notification_mode=${1:-with-notifications}
+      notification_mode=${1--with-notifications}
 
       # Wayland -> X11
       wl-paste --type text --watch bash -c "clipsync insert $notification_mode" &
