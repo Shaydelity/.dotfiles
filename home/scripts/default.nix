@@ -3,7 +3,7 @@ let
   # https://github.com/hyprwm/Hyprland/issues/6132#issue-comment-2127153823
   #!/usr/bin/env sh
   clipsync = pkgs.writeShellScriptBin "clipsync" ''
-    #!/usr/bin/env bash
+    #!/usr/bin/env sh
     #
     # Two-way clipboard syncronization between Wayland and X11, with cliphy support!
     # !! Recommended use: Drop this file off @ /usr/local/bin/clipsync && make it executable
@@ -85,7 +85,10 @@ let
       # Add a small delay to ensure clipboard services are initialized
       sleep 1
 
-      notification_mode=${1:-with-notifications}
+      notification_mode="$1"
+      if [ -z "$notification_mode" ]; then
+          notification_mode="with-notifications"
+      fi
 
       # Wayland -> X11
       wl-paste --type text --watch bash -c "clipsync insert $notification_mode" &
