@@ -25,6 +25,7 @@ home.packages = with pkgs; [
     playerctl
     wl-clipboard
     xclip # X11 Clipboard
+    clipnotify # Needed for Clipsync script
     pamixer
     networkmanagerapplet
 
