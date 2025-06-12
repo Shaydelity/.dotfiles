@@ -105,4 +105,15 @@
 
   programs.home-manager.enable = true;
   home.stateVersion = "25.05";
+
+  #systemd.user.services.nextcloud-client = {
+  #  enable = true; 
+  #  wantedBy = [ "graphical-session.target" ];
+  #  after = [ "graphical-session.target" ];
+  #  serviceConfig = {
+  #    ExecStart = "${pkgs.nextcloud-client}/bin/nextcloud";
+  #    Restart = "on-failure";
+  #  };
+  #};
+
 }
