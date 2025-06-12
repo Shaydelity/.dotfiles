@@ -60,8 +60,7 @@
     bitwig-studio
     davinci-resolve
     tenacity
-    # Don't uncomment! - Steam is installed in system config to allow system access.
-    # steam
+    # steam - Installed in system config for the system access.
     r2modman
     godot
 

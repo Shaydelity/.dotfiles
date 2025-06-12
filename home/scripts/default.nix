@@ -35,7 +35,8 @@ let
 
       notify() {
         if [ "$1" != "without-notifications" ]; then
-          notify-send -u low -c clipboard "$2" "$value"
+      #    notify-send -u low -c clipboard "$2" "$value"
+          echo
         fi
       }
 
