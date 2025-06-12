@@ -29,8 +29,15 @@
     "io.github.MakovWait.Godots"
     "com.github.tchx84.Flatseal"
     "com.vscodium.codium"
+    "org.gnome.SimpleScan"
   ];
 
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
+  services.printing.enable = true;
 
   # Also need to rebuild nix to fix dolphin MIME
   home.packages = (with pkgs; [
