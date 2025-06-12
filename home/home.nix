@@ -107,10 +107,10 @@
   home.stateVersion = "25.05";
 
   systemd.user.services.nextcloud-client = {
+    enable = true; 
     description = "Nextcloud Desktop Synchronization Client";
-    wantedBy = [ "wayland-session.target" ];
-    after = [ "wayland-session.target" ];
-
+    wantedBy = [ "graphical-session.target" ];
+    after = [ "graphical-session.target" ];
     serviceConfig = {
       ExecStart = "${pkgs.nextcloud-client}/bin/nextcloud";
       Restart = "on-failure";
