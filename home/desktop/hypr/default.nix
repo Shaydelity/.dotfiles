@@ -26,7 +26,6 @@ home.packages = with pkgs; [
     wl-clipboard
     xclip # X11 Clipboard
     clipnotify # Needed for Clipsync script
-    clipman
     pamixer
     networkmanagerapplet
 
