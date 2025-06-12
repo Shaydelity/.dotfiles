@@ -105,4 +105,16 @@
 
   programs.home-manager.enable = true;
   home.stateVersion = "25.05";
+
+  systemd.user.services.nextcloud-client = {
+    description = "Nextcloud Desktop Synchronization Client";
+    wantedBy = [ "wayland-session.target" ];
+    after = [ "wayland-session.target" ];
+
+    serviceConfig = {
+      ExecStart = "${pkgs.nextcloud-client}/bin/nextcloud";
+      Restart = "on-failure";
+    };
+  };
+
 }
