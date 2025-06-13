@@ -53,6 +53,25 @@
             }
           ];
         };
+        eclipse = nixpkgs.lib.nixosSystem {
+          specialArgs = {inherit inputs;};
+          modules = [
+            ./hosts/eclipse
+            home-manager.nixosModules.home-manager
+
+            {
+              home-manager.extraSpecialArgs = {inherit inputs;};
+              home-manager.useUserPackages = true;
+              home-manager.users.shaydelity = {
+                imports = [
+                  hyprland.homeManagerModules.default
+                  nix-flatpak.homeManagerModules.nix-flatpak
+                  ./home/home-eclipse.nix
+                ];
+              };
+            }
+          ];
+        };
       };
     };
 }
