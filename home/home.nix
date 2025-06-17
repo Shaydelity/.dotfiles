@@ -63,6 +63,7 @@
     # steam - Installed in system config for the system access.
     r2modman
     godot
+    unrar
 
     jellyfin-media-player
     gnome-network-displays
@@ -72,7 +73,8 @@
 
     # Command line utils
     fish
-    wine
+    wineWowPackages.stable
+    winetricks
     wlr-randr
     git
     nitch
