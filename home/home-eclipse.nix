@@ -61,7 +61,11 @@
 
     # Command line utils
     fish
-    wine
+    # wine (32)
+    # wine64
+    # wineWowPackages.waylandFull
+    wineWowPackages.stable
+    winetricks
     wlr-randr
     git
     nitch

@@ -91,6 +91,7 @@ in
   environment.systemPackages = with pkgs; [
     micro
     killall
+    zstd
   ];
 
   # Fonts
