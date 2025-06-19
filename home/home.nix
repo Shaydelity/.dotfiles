@@ -64,6 +64,7 @@
     r2modman
     godot
     unrar
+    unzip
 
     jellyfin-media-player
     gnome-network-displays
