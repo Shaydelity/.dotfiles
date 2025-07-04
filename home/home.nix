@@ -25,7 +25,7 @@
 
   services.flatpak.packages = [
     "com.bktus.gpgfrontend"
-    "org.prismlauncher.PrismLauncher"
+    #"org.prismlauncher.PrismLauncher"
     "io.github.MakovWait.Godots"
     "com.github.tchx84.Flatseal"
     "com.vscodium.codium"
