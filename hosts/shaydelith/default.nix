@@ -16,6 +16,9 @@
     killall
     zstd
     prismlauncher
+    docker
   ];
+
+  virtualisation.docker.enable = true;
 
 }

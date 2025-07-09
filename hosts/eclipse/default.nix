@@ -12,6 +12,16 @@
 
   networking.hostName = "eclipse"; # Define your hostname.
 
+  environment.systemPackages = with pkgs; [
+    micro
+    killall
+    zstd
+    prismlauncher
+    docker
+  ];
+
+  virtualisation.docker.enable = true;
+
   #boot.kernelPackages = let
   #  linux_sgx_pkg = { stdenv, fetchFromGitHub, buildLinux, zstd, ... } @ args:
 
