@@ -12,14 +12,6 @@
 
   networking.hostName = "eclipse"; # Define your hostname.
 
-  environment.systemPackages = with pkgs; [
-    micro
-    killall
-    zstd
-    prismlauncher
-    docker
-  ];
-
   virtualisation.docker.enable = true;
 
   #boot.kernelPackages = let

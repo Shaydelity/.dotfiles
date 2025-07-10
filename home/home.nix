@@ -63,8 +63,6 @@
     # steam - Installed in system config for the system access.
     r2modman
     godot
-    unrar
-    unzip
 
     jellyfin-media-player
     gnome-network-displays

@@ -11,14 +11,6 @@
 
   networking.hostName = "shaydelith"; # Define your hostname.
 
-  environment.systemPackages = with pkgs; [
-    micro
-    killall
-    zstd
-    prismlauncher
-    docker
-  ];
-
   virtualisation.docker.enable = true;
 
 }

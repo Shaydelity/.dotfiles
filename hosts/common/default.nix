@@ -62,6 +62,9 @@ in
   # Programs
   programs.steam.enable = true;  # Needs to be in system conf for alvr.
 
+  # Make unmounted disks appear in dolphin
+  services.udisks2.enable = true;
+
   # Hyprland
   nix.settings = {
     substituters = ["https://hyprland.cachix.org"];
@@ -92,6 +95,14 @@ in
     micro
     killall
     zstd
+    prismlauncher
+    docker
+    hyprpolkitagent
+    zip
+    unzip
+    unrar
+    kdePackages.ark
+    exfatprogs
   ];
 
   # Fonts
