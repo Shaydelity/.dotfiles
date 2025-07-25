@@ -35,7 +35,7 @@
     in {
       nixosConfigurations = {
         shaydelith = nixpkgs.lib.nixosSystem {
-          specialArgs = {inherit inputs;};
+          specialArgs = {inherit inputs; inherit home-manager;};
           modules = [
             ./hosts/shaydelith
             home-manager.nixosModules.home-manager
@@ -54,7 +54,7 @@
           ];
         };
         eclipse = nixpkgs.lib.nixosSystem {
-          specialArgs = {inherit inputs;};
+          specialArgs = {inherit inputs; inherit home-manager;};
           modules = [
             ./hosts/eclipse
             home-manager.nixosModules.home-manager

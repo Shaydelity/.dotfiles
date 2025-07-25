@@ -28,6 +28,13 @@
     [ { device = "/dev/disk/by-uuid/479a704d-d5d3-46be-b66e-06ee8a01dcad"; }
     ];
 
+  home-manager.users.shaydelity.wayland.windowManager.hyprland.settings = {
+    monitor = [
+      "HDMI-A-1, 1920x1080@60, auto, auto"
+      "DP-1, 2560x1440@165, auto, auto"
+    ];
+  };
+
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
   # still possible to use this option, but it's recommended to use it in conjunction
