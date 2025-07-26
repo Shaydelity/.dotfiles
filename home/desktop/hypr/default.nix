@@ -123,7 +123,7 @@ wayland.windowManager.hyprland = {
         "$fileManager" = "dolphin";
         "$menu" = "rofi -theme theme -show drun";
         "$power_menu" = "rofi -theme theme -show power-menu -modi power-menu:~/.config/rofi/rofi-power-menu";
-        "$screenshot" = "grim -g '$(slurp -d)' - | wl-copy";
+        "$screenshot" = "grim -g \"$(slurp -d)\" - | wl-copy";
 
         bind = [
             "$mainMod, F, fullscreen"
