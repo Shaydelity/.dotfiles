@@ -70,6 +70,7 @@
 
     jetbrains.pycharm-community-bin
     jetbrains.idea-community-bin
+    android-studio
 
     # Command line utils
     fish
