@@ -35,6 +35,7 @@
   # Also need to rebuild nix to fix dolphin MIME
   home.packages = (with pkgs; [
     # GUI apps
+    yt-dlp
     bitwarden-desktop
     kitty
     mpv
