@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, pkgs-unstable, inputs, ... }:
 let
   # Hyprland mesa
   pkgs-hypr = inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
@@ -104,6 +104,12 @@ in
     kdePackages.ark
     exfatprogs
   ];
+
+  home-manager = {
+    extraSpecialArgs = {
+      inherit pkgs-unstable;
+    };
+  };
 
   # Fonts
   fonts.packages = with pkgs; [

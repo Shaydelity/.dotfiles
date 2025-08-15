@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, pkgs-unstable, ... }: {
 
   imports = [
     # hyprland.homeManagerModules.default
@@ -33,7 +33,7 @@
   ];
 
   # Also need to rebuild nix to fix dolphin MIME
-  home.packages = (with pkgs; [
+  home.packages = ( with pkgs; [
     # GUI apps
     yt-dlp
     bitwarden-desktop
@@ -56,7 +56,7 @@
     obsidian
     drawio
     nextcloud-client
-    signal-desktop
+    pkgs-unstable.signal-desktop
     blender
     blockbench
     bitwig-studio

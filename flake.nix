@@ -4,6 +4,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     # Home manager
     home-manager.url = "github:nix-community/home-manager/release-25.05";
@@ -28,14 +29,19 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, nix-flatpak, hyprland, ... }@inputs: # split-monitor-workspaces
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, nix-flatpak, hyprland, ... }@inputs: # split-monitor-workspaces
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
+      pkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
     in {
       nixosConfigurations = {
         shaydelith = nixpkgs.lib.nixosSystem {
-          specialArgs = {inherit inputs; inherit home-manager;};
+          specialArgs = {
+            inherit inputs;
+            inherit home-manager;
+            inherit pkgs-unstable;
+          };
           modules = [
             ./hosts/shaydelith
             home-manager.nixosModules.home-manager
@@ -54,7 +60,11 @@
           ];
         };
         eclipse = nixpkgs.lib.nixosSystem {
-          specialArgs = {inherit inputs; inherit home-manager;};
+          specialArgs = {
+            inherit inputs;
+            inherit home-manager;
+            inherit pkgs-unstable;
+          };
           modules = [
             ./hosts/eclipse
             home-manager.nixosModules.home-manager
