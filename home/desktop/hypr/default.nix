@@ -139,7 +139,7 @@ wayland.windowManager.hyprland = {
             "$mainMod, D, exec, $menu"
             "$mainMod, J, togglesplit" # dwindle
 
-            "$mainMod, SHIFT, S, exec, $screenshot"
+            "$mainMod SHIFT, S, exec, $screenshot"
 
             # Functional keybinds
             ",XF86AudioMicMute,exec,pamixer --default-source -t"
@@ -201,7 +201,7 @@ wayland.windowManager.hyprland = {
         bindm = [
             "$mainMod, mouse:272, movewindow"
             "$mainMod, mouse:273, resizewindow"
-            "$mainMod, ALT, mouse:272, resizewindow"
+            #"$mainMod, ALT, mouse:272, resizewindow"
         ];
     };
 };
