@@ -139,7 +139,7 @@ wayland.windowManager.hyprland = {
             "$mainMod, D, exec, $menu"
             "$mainMod, J, togglesplit" # dwindle
 
-            "$mainMod SHIFT, S, exec, $screenshot"
+            "$mainMod, SHIFT, S, exec, $screenshot"
 
             # Functional keybinds
             ",XF86AudioMicMute,exec,pamixer --default-source -t"
