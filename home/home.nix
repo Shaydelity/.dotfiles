@@ -35,6 +35,7 @@
   # Also need to rebuild nix to fix dolphin MIME
   home.packages = ( with pkgs; [
     # GUI apps
+    zenity
     yt-dlp
     bitwarden-desktop
     kitty
@@ -86,6 +87,7 @@
     gnumake
     curl
     appimage-run
+    osu-lazer-bin
     sqlite
     (python312.withPackages (p: with p; [
       build
