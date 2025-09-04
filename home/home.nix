@@ -85,7 +85,7 @@
     tenacity
     kdePackages.gwenview
     # steam - Installed in system config for the system access.
-    r2modman
+    pkgs-unstable.r2modman
     # gale # Gdk-Message: 16:33:38.349: Error 71 (Protocol error) dispatching to Wayland display.
     godot
 
