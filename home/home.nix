@@ -21,7 +21,24 @@
   services.flatpak.update.auto.enable = false;
   services.flatpak.uninstallUnmanaged = false;
 
-  nixpkgs.config.allowUnfree = true;
+  # The below code does work.
+  nixpkgs = {
+    config = {
+      allowUnfree = true;
+      allowUnfreePredicate = (_: true);
+    };
+  };
+
+  # nixpkgs-unstable = {
+  #   config = {
+  #     allowUnfree = true;
+  #     allowUnfreePredicate = (_: true);
+  #   };
+  # };
+
+  # nixpkgs.config.allowUnfree = true;
+  # nixpkgs-unstable.config.allowUnfree = true;
+  #pks-unstable.config.allowUnfree = true;
 
   services.flatpak.packages = [
     "com.bktus.gpgfrontend"
@@ -31,6 +48,7 @@
     "com.vscodium.codium"
     "org.gnome.SimpleScan"
   ];
+
 
   # Also need to rebuild nix to fix dolphin MIME
   home.packages = ( with pkgs; [
@@ -58,6 +76,8 @@
     drawio
     nextcloud-client
     pkgs-unstable.signal-desktop
+    # pks-unstable.osu-lazer-bin
+    osu-lazer-bin
     blender
     blockbench
     bitwig-studio
@@ -66,6 +86,7 @@
     kdePackages.gwenview
     # steam - Installed in system config for the system access.
     r2modman
+    # gale # Gdk-Message: 16:33:38.349: Error 71 (Protocol error) dispatching to Wayland display.
     godot
 
     jellyfin-media-player
@@ -87,7 +108,6 @@
     gnumake
     curl
     appimage-run
-    osu-lazer-bin
     sqlite
     (python312.withPackages (p: with p; [
       build
