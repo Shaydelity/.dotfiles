@@ -24,10 +24,13 @@
       options = [ "fmask=0077" "dmask=0077" ];
     };
 
-  swapDevices = [{
-    device = "/swapfile";
-    size = 8 * 1024; # 8GB
-  }];
+
+  swapDevices = [];
+
+#   swapDevices = [{
+#     device = "/swapfile";
+#     size = 8 * 1024; # 8GB
+#   }];
 
   home-manager.users.shaydelity.wayland.windowManager.hyprland.settings = {
     monitor = [

@@ -1,13 +1,12 @@
 { config, pkgs, ... }:
 {
-home.packages = with pkgs; [
+  home.packages = with pkgs; [
     cava
-];
+  ];
 
-home.file.".config/cava" = {
+  xdg.configFile."cava" = {
     source = ./config;
     recursive = true;
-};
-
+  };
 
 }

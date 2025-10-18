@@ -1,53 +1,36 @@
 [
   {
     "battery": {
-      "format": "{capacity}% {power:0.1f}W",
-      "interval": 1,
-      "states": {
-        "critical": 15,
-        "warning": 30
-      }
+      "format": "{capacity}% -{power:0.1f}W",
+      "format-charging": "{capacity}% +{power:0.1f}W",
+      "format-full": "{capacity}% {power:0.1f}W",
+      "interval": 3,
     },
     "clock": {
       "format": "{:%I:%M %p  %A %b %d}",
-      "interval": 1,
+      "interval": 5,
       "tooltip": true,
       "tooltip-format": "{=%A; %d %B %Y}\n<tt>{calendar}</tt>"
     },
     "cpu": {
       "format": "󰍛 {usage}%",
-      "interval": 1
-    },
-    "custom/cava-internal": {
-      "exec": "sleep 1s && cava-internal",
-      "tooltip": false
-    },
-    "custom/launcher": {
-      "format": " ",
-      "on-click": "pkill rofi || rofi2",
-      "on-click-middle": "exec default_wall",
-      "on-click-right": "exec wallpaper_random",
-      "tooltip": false
-    },
-    "custom/powermenu": {
-      "format": "",
-      "on-click": "pkill rofi || rofi -show power-menu -modi power-menu:~/.config/home-manager/programs/rofi/rofi-power-menu",
-      "tooltip": false
+      "interval": 2
     },
     "layer": "top",
     "memory": {
       "format": "󰻠 {percentage}%",
-      "interval": 1,
+      "interval": 5,
       "states": {
         "warning": 85
       }
     },
+
+
     "modules-center": [
       "clock"
     ],
     "modules-left": [
       "battery",
-      "custom/cava-internal",
       "hyprland/workspaces"
     ],
     "modules-right": [
@@ -57,29 +40,17 @@
       "memory",
       "cpu",
       "network",
-      "custom/powermenu",
+      "custom/networkmanager",
     ],
-    "mpd": {
-      "format": "<span foreground='#bb9af7'></span> {title}",
-      "format-disconnected": "",
-      "format-paused": " {title}",
-      "format-stopped": "<span foreground='#bb9af7'></span>",
-      "max-length": 25,
-      "on-click": "mpc --quiet toggle",
-      "on-click-middle": "kitty --class='ncmpcpp' ncmpcpp ",
-      "on-click-right": "mpc update; mpc ls | mpc add",
-      "on-scroll-down": "mpc --quiet next",
-      "on-scroll-up": "mpc --quiet prev",
-      "smooth-scrolling-threshold": 5,
-      "tooltip-format": "{title} - {artist} ({elapsedTime:%M:%S}/{totalTime:%H:%M:%S})"
-    },
+
+
     "network": {
       "format-disconnected": "󰯡 Disconnected",
-      "format-ethernet": "󰒢 Connected!",
+      "format-ethernet": "󰒢 LAN",
       "format-linked": "󰖪 {essid} (No IP)",
       "format-wifi": "󰖩 {essid}",
-      "interval": 1,
-      "on-click": "nm-connection-editor",
+      "interval": 10,
+      "on-click": "networkmanager_dmenu -theme theme",
       "tooltip": false
     },
     "position": "top",
@@ -94,7 +65,7 @@
       },
       "format-muted": "󰖁 Muted",
       "on-click": "pavucontrol",
-      "scroll-step": 1,
+      "scroll-step": 0,
       "tooltip": false
     },
     "tray": {

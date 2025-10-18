@@ -1,0 +1,113 @@
+Commit Details:
+
+IMPORTANT:
+- Prismlauncher removed
+- LibreOffice, gimp, godot removed
+- Swapfile deactivated and removed (eclipse > hardware)
+- Steam disabled (common > default)
+
+To do:
+- [ ] Eclipse program management
+- [X] Hyprland
+- [ ] Get rofi-menu workin'
+
+Workflow:
+- [X] Fork dotfiles
+- [ ] Make documentation branch
+- [ ] Push commentary changes (+ removal of unneeded files)
+- [ ] Transfer actual changes on main
+- [ ] Push main changes
+
+Notes:
+- Last kernel version (common > default)
+
+flake.nix:
+- Expanded Commentary
+- Added VR Packages
+- Added Catpuccin Color Scheme
+- Added Lossless Scaling for Steam Games (commented out)
+- Added Modules to NixOS Configurations
+- Switched from Legacy Package Manager to modern.
+- Removed Home Manager Imports
+
+Added mime.nix
+
+Added common > mounts.nix:
+- Taken from Zohiu's filesystems.nix
+- Added commentary
+
+Added networking.nix:
+
+common > default.nix:
+- Removed Hyprland Mesa
+- Added Kernel Modules
+- Added Drawing Tablet kernel/support
+- Added Dolphin packages
+- Added Catpuccin settings
+- Added in "Programs" steam and ollama Configurations
+- Added lossless scaling for Steam Games settings (commented out)
+- Disabled X11, using XWayland already.
+- Removed Nix Version
+
+eclipse > default.nix:
+- Imports Home Manager here now, changed import to home/eclipse.nix
+- Added Nix Version (+ Home Manager Nix Ver.)
+- Removed Docker virtualisation enable (already in common)
+- Enabled suspension on lid close
+- Ignored Power Key
+
+Added eclipse > surface-kernel-nix
+
+shaydelith > default.nix:
+- Imports Home Manager here now, changed import to /home
+- Added Nix Version (+ Home Manager Nix Ver.)
+- Configured Sample Rate
+- Removed Docker virtualisation enable (already in common)
+
+Added shaydelith > vr.nix
+
+home > eclipse.nix (home-eclipse.nix):
+-
+
+home > default.nix (home.nix):
+- Moved programs to programs > default.nix
+
+home > programs:
+- Took over all of Zohiu's stuff, adapted git credentials.
+
+README.md:
+- Added preview Image
+
+
+Prior Surface Kernel thing
+{
+  boot.kernelPackages = let
+    linux_sgx_pkg = { stdenv, fetchFromGitHub, buildLinux, zstd, ... } @ args:
+
+  buildLinux (args // rec {
+      version = "6.14.2";
+      modDirVersion = version;
+
+      nativeBuildInputs = [ zstd ];
+
+      src = fetchFromGitHub {
+        owner = "linux-surface";
+        repo = "kernel";
+        rev = "1069b63e699910262e7cbc208701c9184075244d";
+        sha256 = "sha256-zj01uV4Rya/MbIh44dQ6/w6KafTfIaPSK38ElD6gjEE="; # ← fill after first build #sha256-9dawYAopzFYIbwH68zpBOw2Qty7iorRUyuO7jjnn9Bk=
+      };
+
+      kernelPatches = [];
+
+      extraConfig = ''
+        INTEL_SGX y
+      '';
+
+      extraMeta.branch = "6.14";
+    } // (args.argsOverride or {}));
+
+    linux_sgx = pkgs.callPackage linux_sgx_pkg {};
+  in
+  pkgs.recurseIntoAttrs (pkgs.linuxPackagesFor linux_sgx);
+}
+

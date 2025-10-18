@@ -1,141 +1,173 @@
-{ pkgs, lib, ... }:
 {
-#home.activation = {
-#    hypr_reload = lib.hm.dag.entryAfter ["writeBoundary"] ''
-#        ${pkgs.hyprland}/bin/hyprctl reload
-#    '';
-#};
+  config,
+  pkgs,
+  pkgs-unstable,
+  zstd,
+  nix-flatpak,
+  hyprland,
+  inputs,
+  ...
+}:
+{
 
-wayland.windowManager.hyprland = {
+  # Takes inputs from flake.nix!
+
+  # Takes inputs from flake.nix!
+  wayland.windowManager.hyprland = {
     enable = true;
+    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+    portalPackage = inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
+    xwayland.enable = true;
+    systemd.enable = true;
+
+#     plugins = [
+#       inputs.split-monitor-workspaces.packages.${pkgs.system}.split-monitor-workspaces
+#     ];
+
     settings = {
-        exec-once = [
-            "nextcloud"
-            "dunst"
-            "hyprctl setcursor Bibata-Modern-Classic 24"
-            "easyeffects --gapplication-service"
-            "swww init && exec wallpaper_random"
-            "while true; do sleep 300; wallpaper_random; done"
-            "systemctl --user start hyprpolkitagent"
+      exec-once = [
+        "hyprctl setcursor Bibata-Modern-Classic 24"
+        "nextcloud"
+        "dunst"
+        "easyeffects --gapplication-service"
+        "wl-paste -t text --watch clipman store --no-persist"
+        "systemctl --user start hyprpolkitagent"
+        "hyprpaper"
+        "udiskie --automount --notify"
+      ];
+
+      exec = [
+        "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+        "dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+        "pkill waybar; waybar"
+        "XDG_MENU_PREFIX=plasma- kbuildsycoca6"
+      ];
+
+      input = {
+        kb_layout = "de";
+        follow_mouse = 1;
+        sensitivity = 1.0;
+        accel_profile = "flat";
+        force_no_accel = true;
+        natural_scroll = false;
+
+        touchpad = {
+          natural_scroll = true;
+          disable_while_typing = false;
+          scroll_factor = 0.8;
+        };
+      };
+
+      general = {
+        gaps_in = 5;
+        gaps_out = 10;
+        border_size = 2;
+        "col.active_border" = "rgba(e170ffee) rgba(70a0ffee) 45deg";
+        "col.inactive_border" = "rgba(595959aa)";
+        layout = "dwindle";
+      };
+
+      decoration = {
+        rounding = 10;
+        blur = {
+          enabled = true;
+        };
+        shadow = {
+          enabled = false;
+        };
+      };
+
+      animations = {
+        enabled = true;
+
+        bezier = [
+          "ease,0.4,0.02,0.21,1"
         ];
 
-        exec = [
-            "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-            "dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-            "pkill waybar; waybar"
-            "XDG_MENU_PREFIX=plasma- kbuildsycoca6"
-            "clipsync watch"
+        animation = [
+          "windows,1,3.5,ease,popin"
+          "windowsOut,1,3.5,ease,popin"
+          "border,1,6,default"
+          "fade,1,3,ease"
+          "workspaces,1,3.5,ease,slidefade"
         ];
+      };
 
-        input = {
-            kb_layout = "de";
-            kb_options = "";
-            kb_variant = "";
-            kb_model = "";
-            kb_rules = "";
-            follow_mouse = 1;
-            sensitivity = 1.0;
-            accel_profile = "flat";
-            force_no_accel = true;
+      xwayland = {
+        force_zero_scaling = false;
+      };
 
-            touchpad = {
-                natural_scroll = true;
-                scroll_factor = 0.8;
-            };
-        };
+      misc = {
+        vfr = true; # Lower framerate when no movement.
+      };
 
-        general = {
-            gaps_in = 5;
-            gaps_out = 10;
-            border_size = 2;
-            "col.active_border" = "rgba(e170ffee) rgba(70a0ffee) 45deg";
-            "col.inactive_border" = "rgba(595959aa)";
-            layout = "dwindle";
-        };
+      render = {
+        direct_scanout = 0;
+      };
 
-        decoration = {
-            rounding = 10;
-            blur = {
-                enabled = false;
-            };
-            shadow = {
-                enabled = false;
-            };
-        };
+      dwindle = {
+        pseudotile = true;
+        preserve_split = true;
+      };
 
-        animations = {
-            enabled = true;
+      #gestures = {
+      #  workspace_swipe = false;
+      #};
 
-            bezier = [
-                "ease,0.4,0.02,0.21,1"
-            ];
-
-            animation = [
-                "windows,1,3.5,ease,popin"
-                "windowsOut,1,3.5,ease,popin"
-                "border,1,6,default"
-                "fade,1,3,ease"
-                "workspaces,1,3.5,ease,slidefade"
-            ];
-        };
-
-        misc = {
-        vfr = true;  # Lower framerate when no movement.
-        };
-
-        dwindle = {
-            pseudotile = true;
-            preserve_split = true;
-        };
-
-        plugin = {
-        "split-monitor-workspaces" = {
-            count = 10;
-            keep_focused = false;
-            enable_notifications = false;
-            enable_persistent_workspaces = false;
-        };
+      plugin = {
+#         "split-monitor-workspaces" = {
+#           count = 10;
+#           keep_focused = true;
+#           enable_notifications = false;
+#           enable_persistent_workspaces = false;
+#         };
         "dynamic-cursors" = {
-            enabled = true;
-            mode = "tilt";
-            tilt = {
+          enabled = true;
+          mode = "tilt";
+          tilt = {
             limit = 7500;
-            };
-            shake = {
+          };
+          shake = {
             enabled = true;
-            };
+          };
         };
-        };
+      };
 
-        windowrulev2 = [
-            "tile,class:^(Godot)$"
-            "float,title:\\(DEBUG\\)$"
-            "center,title:\\(DEBUG\\)$"
-            "size 900 600,title:\\(DEBUG\\)$"
-        ];
+      layerrule = [
+        "noanim,^(rofi)$"
+      ];
 
-        "$mainMod" = "SUPER";
-        "$terminal" = "kitty";
-        "$fileManager" = "dolphin";
-        "$menu" = "rofi -theme theme -show drun";
-        "$power_menu" = "rofi -theme theme -show power-menu -modi power-menu:~/.config/rofi/rofi-power-menu";
-        "$screenshot" = "grim -g \"$(slurp -d)\" - | wl-copy";
+      windowrulev2 = [
+        "tile,class:^(Godot)$"
+        "float,title:\\(DEBUG\\)$"
+        "center,title:\\(DEBUG\\)$"
+        "size 900 600,title:\\(DEBUG\\)$"
+
+        "noinitialfocus, class:(jetbrains-)(.*), floating:1"
+
+        "float,class:org.pulseaudio.pavucontrol"
+        "size 800 600,class:org.pulseaudio.pavucontrol"
+      ];
+
+        "$mainMod" = "SUPER"; # Define Main Modifier Key
 
         bind = [
-            "$mainMod, F, fullscreen"
+            "$mainMod, F, fullscreen" # "F for Fullscreen."
+            "$mainMod, RETURN, exec, kitty" # "Enter text/terminal."
+            "$mainMod, T, exec, kitty" # "T for Terminal."
+            "$mainMod, Q, killactive" # "Q for Quit (window)."
+            "$mainMod, X, exec, rofi -show power-menu -modi power-menu:~/.dotfiles/home/desktop/rofi/config/rofi-power-menu" # "X for Exit."
+#             "$mainMod, I, exec, rofi-main-menu" # Meta + I is the Windows shortcut for settings.
+            "$mainMod, E, exec, dolphin" # "E for Explorer."
+            "$mainMod, SPACE, togglefloating" # "You float in space."
+            "$mainMod, d, exec, rofi -theme theme -show drun" # Uses rofi; "D for Desktop-run/DRun"
+            "$mainMod, L, togglesplit" # Uses dwindle; "L like Layout"
 
-            #bind = $mainMod, RETURN, exec, cool-retro-term-zsh
-            "$mainMod, RETURN, exec, $terminal"
-            "$mainMod, T, exec, $terminal"
-            "$mainMod, Q, killactive"
-            # $mainMod, M, exit, Instant exit ain't cool.
-            "$mainMod, X, exec, $power_menu"
-            "$mainMod, E, exec, $fileManager"
-            "$mainMod, SPACE, togglefloating"
-            "$mainMod, D, exec, $menu"
-            "$mainMod, J, togglesplit" # dwindle
-
-            "$mainMod SHIFT, S, exec, $screenshot"
+            "$mainMod SHIFT, S, exec, grim -g \"$(slurp -d)\" - | wl-copy" # Windows shortcut for screenshots.
+#             "$mainMod SHIFT, S, exec, spectacle -r" # Windows shortcut for screenshots.
+#             "$mainMod SHIFT, S, exec, hyprshot -m region -c"
+            "$mainMod CONTROL, S, exec, grim -g \"$(slurp -d)\" - | swappy -f -"
+            "$mainMod ALT, S, exec, grim - | wl-copy"
 
             # Functional keybinds
             ",XF86AudioMicMute,exec,pamixer --default-source -t"
@@ -148,8 +180,10 @@ wayland.windowManager.hyprland = {
             ",XF86AudioPause,exec,playerctl play-pause"
 
             # to switch between windows in a floating workspace
-            "SUPER,Tab,cyclenext"
-            "SUPER,Tab,bringactivetotop"
+            "$mainMod,Tab,cyclenext"
+            "$mainMod,Tab,bringactivetotop"
+            "$mainMod SHIFT,Tab,cyclenext, prev" # Let's you cycle back one time
+            "$mainMod SHIFT,Tab,bringactivetotop"
 
             # Move focus with mainMod + arrow keys
             "$mainMod, left, movefocus, l"
@@ -169,6 +203,7 @@ wayland.windowManager.hyprland = {
             "$mainMod, 9, workspace, 9"
             "$mainMod, 0, workspace, 10"
 
+            # Switch workspace
             # Move active window to a workspace with mainMod + SHIFT + [0-9]
             "$mainMod SHIFT, 1, movetoworkspace, 1"
             "$mainMod SHIFT, 2, movetoworkspace, 2"
@@ -198,124 +233,133 @@ wayland.windowManager.hyprland = {
             "$mainMod, mouse:272, movewindow"
             "$mainMod, mouse:273, resizewindow"
             "$mainMod ALT, mouse:272, resizewindow"
-        ];
+      ];
     };
-};
+  };
 
+  services.hypridle = {
+    enable = true;
+    settings = {
+      after_sleep_cmd = "sudo systemctl restart NetworkManager";
 
-home.packages = with pkgs; [
+      inhibit_sleep = 1;
+    };
+  };
+
+  services.hyprpolkitagent.enable = true;
+
+  services.clipman.enable = true;
+
+  home.packages = with pkgs; [
     xdg-desktop-portal
     grim
+    swappy
+#     kdePackages.spectacle # only works with KDE Plasma
     slurp  # Screenshot Cropping
+#     hyprshot
     hyprlock
+    hyprpaper
     swww
     pavucontrol
     easyeffects
-    playerctl
     wl-clipboard
+    pamixer
     xclip # X11 Clipboard
     clipnotify # Needed for Clipsync script
     # cliphist
     pamixer
     networkmanagerapplet
-
-    # See hyprland config for applying qt theme.
-    # plasma-apply-colorscheme CatppuccinMochaMauve
-    (catppuccin-kde.override {
-        flavour = [ "mocha" ];
-        accents = [ "mauve" ];
-    })
-    # plasma-workspace
-    libsForQt5.plasma-workspace
-
     papirus-folders
-];
+    xorg.xhost
+    xwayland
+  ];
 
 
-# To disable dolphin single click, add
-# "SingleClick=false" to the [KDE] section in ~/.config/kdeglobals
-qt = {
-    enable = true;
-    platformTheme.name = "kde";
-};
+#   To disable dolphin single click, add
+#   "SingleClick=false" to the [KDE] section in ~/.config/kdeglobals
+#   qt = {
+#     enable = true;
+#     platformTheme.name = "kde";
+#   };
 
-home.activation.qt-theme = lib.hm.dag.entryAfter ["writeBoundary"] ''
-    run ${pkgs.libsForQt5.plasma-workspace}/bin/plasma-apply-colorscheme CatppuccinMochaMauve
-'';
+#   home.activation.qt-theme = lib.hm.dag.entryAfter ["writeBoundary"] ''
+#       run ${pkgs.libsForQt5.plasma-workspace}/bin/plasma-apply-colorscheme CatppuccinMochaMauve
+#   '';
 
-xdg.mimeApps = { # Defines Default
-    enable = true;
-    defaultApplications = {
-        "default-web-browser" = [ "vivaldi-stable.desktop" ];
-        "x-scheme-handler/http" = [ "vivaldi-stable.desktop" ];
-        "x-scheme-handler/https" = [ "vivaldi-stable.desktop" ];
-        "x-scheme-handler/about" = [ "vivaldi-stable.desktop" ];
-        "x-scheme-handler/unknown" = [ "vivaldi-stable.desktop" ];
-
-        "text/plain" = [ "kate.desktop" ];
-        "text/html" = [ "vivaldi-stable.desktop" ];
-    };
-};
-
-home = {
+  home = {
     sessionVariables = {
-        EDITOR = "kate";
-        BROWSER = "firefox";
-        TERMINAL = "kitty";
-        __GL_VRR_ALLOWED="1";
-        WLR_NO_HARDWARE_CURSORS = "1";
-        WLR_RENDERER_ALLOW_SOFTWARE = "1";
-        CLUTTER_BACKEND = "wayland";
-        WLR_RENDERER = "vulkan";
+      EDITOR = "kate";
+      BROWSER = "firefox";
+      TERMINAL = "kitty";
+      __GL_VRR_ALLOWED="1";
+#       WLR_NO_HARDWARE_CURSORS = "1";
+      WLR_RENDERER_ALLOW_SOFTWARE = "1";
+      CLUTTER_BACKEND = "wayland";
+      WLR_RENDERER = "vulkan";
 
-        XDG_CURRENT_DESKTOP = "Hyprland";
-        XDG_SESSION_DESKTOP = "Hyprland";
-        XDG_SESSION_TYPE = "wayland";
+      XDG_CURRENT_DESKTOP = "Hyprland";
+      XDG_SESSION_DESKTOP = "Hyprland";
+      XDG_SESSION_TYPE = "wayland";
+      NIXOS_OZONE_WL = "1";
+      PKG_CONFIG_PATH = "${pkgs.openssl.dev}/lib/pkgconfig";
+      # AQ_DRM_DEVICES = "/dev/dri/card0:/dev/dri/card1";
+      QT_STYLE_OVERRIDE = "darkly";
     };
-};
+  };
 
 
-gtk = {
+  gtk = {
     enable = true;
     iconTheme = {
-        name = "Papirus-Dark";
-        package = pkgs.papirus-icon-theme;
+      name = "Papirus-Dark";
+      package = pkgs.papirus-icon-theme;
     };
 
     theme = {
-        name = "catppuccin-mocha-mauve-standard";
-        package = (pkgs.catppuccin-gtk.override {
-            accents = [ "mauve" ];
-            variant = "mocha";
-        });  # tokyo-night-gtk
+      name = "catppuccin-mocha-mauve-standard";
+      package = (
+        pkgs.catppuccin-gtk.override {
+          accents = [ "mauve" ];
+          variant = "mocha";
+        }
+      ); # tokyo-night-gtk
     };
 
     cursorTheme = {
-        name = "Bibata-Modern-Classic";
-        package = pkgs.bibata-cursors;
+      name = "Bibata-Modern-Classic";
+      package = pkgs.bibata-cursors;
     };
-};
+  };
 
-dconf.settings = {
+  qt = {
+    enable = true;
+    style.package = with pkgs; [
+      darkly-qt5
+      darkly
+      catppuccin-qt5ct
+      catppuccin
+      dracula-qt5-theme
+      dracula-theme
+    ];
+    platformTheme.name = "qtct";
+    kde.settings.kdeglobals.General.TerminalApplication = "kitty";
+    kde.settings.kdeglobals.Icons.Theme = "Papirus-Dark";
+    kde.settings.kdeglobals.UiSettings.ColorScheme = "qt6ct";
+  };
+
+  dconf.settings = {
     "org/gnome/desktop/interface" = {
-        color-scheme = "prefer-dark";
+      color-scheme = "prefer-dark";
     };
 
     "org/gnome/shell/extensions/user-theme" = {
-        name = "Tokyonight-Dark";
+      name = "catppuccin-mocha-mauve-standard";
     };
-};
+  };
 
-home.file.".config/hypr" = {
+  xdg.configFile."hypr" = {
     source = ./config;
     recursive = true;
-};
+  };
 
-
-
-#wayland.windowManager.hyprland = {
-#    enable = true;
-#    systemd.enable = true;
-#    extraConfig = "";
-#};
 }
