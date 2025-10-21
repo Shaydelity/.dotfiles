@@ -165,6 +165,7 @@
     exfatprogs
     networkmanagerapplet
     wpa_supplicant
+    btop
 
     # Dolphin Packages
     kdePackages.qtsvg

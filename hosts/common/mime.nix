@@ -212,6 +212,10 @@ let
     # Adobe Format Mimes
     "image/vnd.adobe.photoshop"         = [ "gimp.desktop" ];      # .psd
     "application/vnd.adobe.illustrator" = [ "inkscape.desktop" ];  # .ai
+    # Drawio
+    "application/vnd.jgraph.mxfile" = [ "drawio.desktop" ];
+    "application/x-drawio"          = [ "drawio.desktop" ];
+    "text/drawio"                   = [ "drawio.desktop" ];
   }
   // audioDefaults
   // videoDefaults
