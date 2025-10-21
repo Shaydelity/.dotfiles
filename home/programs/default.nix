@@ -83,6 +83,8 @@
     drawio
     nextcloud-client
     pkgs-unstable.signal-desktop
+#     pkgs-unstable.unityhub
+    pkgs-unstable.inkscape
     # pks-unstable.osu-lazer-bin
     osu-lazer-bin
     blender

@@ -172,6 +172,13 @@ let
     "application/vnd.oasis.opendocument.presentation"                           # .odp
   ];
 
+  # === Draw.io / Diagrams.net ===
+  drawioMimes = [
+    "application/vnd.jgraph.mxfile"
+    "application/x-drawio"
+    "text/drawio"
+  ];
+
   # === Godot Game engine ===
   godotMimes = [
     "application/x-godot-scene"        # .tscn
@@ -191,31 +198,28 @@ let
 
   # Generate defaults
   archiveDefauls     = makeDefaults archiveMimes    "org.kde.ark.desktop";
-  audioDefaults      = makeDefaults audioMimes      "amberol.desktop";
+  audioDefaults      = makeDefaults audioMimes      "io.bassi.amberol.desktop";
   videoDefaults      = makeDefaults videoMimes      "mpv.desktop";
-  imageDefaults      = makeDefaults imageMimes      "gwenview.desktop";
+  imageDefaults      = makeDefaults imageMimes      "org.kde.gwenview.desktop";
   textDefaults       = makeDefaults textMimes       "org.kde.kate.desktop";
   excelDefaults      = makeDefaults excelMimes      "libreoffice-calc.desktop";
   wordDefaults       = makeDefaults wordMimes       "libreoffice-writer.desktop";
   powerpointDefaults = makeDefaults powerpointMimes "libreoffice-impress.desktop";
-  godotDefaults      = makeDefaults godotMimes      "godot.desktop";
+  drawioDefaults     = makeDefaults drawioMimes     "drawio.desktop";
+  godotDefaults      = makeDefaults godotMimes      "org.godotengine.Godot4.4.desktop";
 
   # Established Defaults list
   defaults = {
-    "inode/directory"       = [ "dolphin.desktop" ];
+    "inode/directory"       = [ "dolphin.desktop" ];              # File Explorer
     "text/html"             = [ "vivaldi-stable.desktop" ];       # .html
     "application/pdf"       = [ "vivaldi-stable.desktop" ];       # .pdf
     "application/vnd.unity" = [ "unity.desktop" ];                # .unity, .unitypackage
     "image/x-krita"         = [ "krita.desktop" ];                # .kra
     "image/x-xcf"           = [ "gimp.desktop" ];                 # .xcf
-    "image/x-inkscape-svg"  = [ "inkscape.desktop" ];             # inkscape .svg
+    "image/x-inkscape-svg"  = [ "org.inkscape.Inkscape.desktop" ];             # inkscape .svg
     # Adobe Format Mimes
     "image/vnd.adobe.photoshop"         = [ "gimp.desktop" ];      # .psd
     "application/vnd.adobe.illustrator" = [ "inkscape.desktop" ];  # .ai
-    # Drawio
-    "application/vnd.jgraph.mxfile" = [ "drawio.desktop" ];
-    "application/x-drawio"          = [ "drawio.desktop" ];
-    "text/drawio"                   = [ "drawio.desktop" ];
   }
   // audioDefaults
   // videoDefaults
@@ -224,6 +228,7 @@ let
   // excelDefaults
   // wordDefaults
   // powerpointDefaults
+  // drawioDefaults
   // godotDefaults;
 in
 {
@@ -231,4 +236,12 @@ in
     enable = true;
     defaultApplications = defaults;
   };
+
+  # Possible issues: /etc/profiles/per-user/shaydelity/share/applications/mimeinfo.cache
+
+  # To check for desktop file names:
+  # /etc/profiles/per-user/shaydelity/share/applications/
+
+  # Debugging:
+  # XDG_UTILS_DEBUG_LEVEL=2 xdg-mime query default text/plain
 }
