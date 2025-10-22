@@ -24,13 +24,14 @@
       options = [ "fmask=0077" "dmask=0077" ];
     };
 
+    # If you want to disable, uncomment this and comment the one after
+#   swapDevices = [];
 
-  swapDevices = [];
-
-#   swapDevices = [{
-#     device = "/swapfile";
-#     size = 8 * 1024; # 8GB
-#   }];
+    # Comment out to disable
+  swapDevices = [{
+    device = "/swapfile";
+    size = 8 * 1024; # 8GB
+  }];
 
   home-manager.users.shaydelity.wayland.windowManager.hyprland.settings = {
     monitor = [
