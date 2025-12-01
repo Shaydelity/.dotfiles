@@ -121,6 +121,23 @@
             ./hosts/eclipse
           ];
         };
+        nyx = nixpkgs.lib.nixosSystem {
+          specialArgs = {
+            inherit inputs;
+            inherit home-manager;
+            inherit pkgs-unstable;
+            inherit hyprland;
+            inherit nix-flatpak;
+            inherit catppuccin;
+          };
+          modules = [
+            catppuccin.nixosModules.catppuccin
+            nix-index-database.nixosModules.nix-index
+            home-manager.nixosModules.home-manager
+            #lsfg-vk-flake.nixosModules.default
+            ./hosts/nyx
+          ];
+        };
       };
     };
 }
