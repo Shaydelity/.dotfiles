@@ -133,9 +133,9 @@
         };
       };
 
-      layerrule = [
-        "noanim,^(rofi)$"
-      ];
+#       layerrule = [
+#         "noanim,^(rofi)$"
+#       ];
 
       windowrulev2 = [
         "tile,class:^(Godot)$"
