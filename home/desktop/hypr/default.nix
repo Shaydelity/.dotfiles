@@ -11,8 +11,6 @@
 {
 
   # Takes inputs from flake.nix!
-
-  # Takes inputs from flake.nix!
   wayland.windowManager.hyprland = {
     enable = true;
     package = inputs.hyprland.packages.${pkgs.system}.hyprland;
@@ -151,7 +149,15 @@
 
         "$mainMod" = "SUPER"; # Define Main Modifier Key
 
+
+
+
+
         bind = [
+            "$mainMod ALT, 1, exec, hyprctl keyword input:kb_layout de" # Switch to German (QWERTZ)
+            "$mainMod ALT, 2, exec, hyprctl keyword input:kb_layout gr"
+            "$mainMod ALT, 2, exec, hyprctl keyword input:kb_layout, extended" # Switch to Greek with variant "extended" (closest to Latin punctuation)
+            "$mainMod ALT, 3, exec, hyprctl keyword input:kb_layout jp" # Switch to Japanese (IME mode handled separately)
             "$mainMod, F, fullscreen" # "F for Fullscreen."
             "$mainMod, RETURN, exec, kitty" # "Enter text/terminal."
             "$mainMod, T, exec, kitty" # "T for Terminal."
