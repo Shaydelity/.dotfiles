@@ -124,17 +124,17 @@
 #   networking.networkmanager.wifi.powersave = false;
 
   # Home Manager overrides
-#   home-manager.users.shaydelity.wayland.windowManager.hyprland.settings = {
-#     exec = [
-      # Update charging status
+  home-manager.users.shaydelity.wayland.windowManager.hyprland.settings = {
+#      exec = [
+#        Update charging status
 #       "sudo systemctl start charger"
-#     ];
+#      ];
 
-    #monitor = [
-      # Also update this in the systemd charger service.
-    #  "eDP-1, 2880x1920@120, auto, auto"
-    #];
-#   };
+    monitor = [
+       # Also update this in the systemd charger service.
+      "eDP-1, 1920x1200@60, auto, 1.25"
+    ];
+  };
 
   # Disable Hyprland Animations
 #   systemd.services."charger" = {
