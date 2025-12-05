@@ -58,8 +58,6 @@
     # Is useful if you have an error with missing dependencies.
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
     nix-index-database.url = "github:nix-community/nix-index-database";
-
-    # Surface Linux Compatibility
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
 
@@ -135,6 +133,7 @@
             nix-index-database.nixosModules.nix-index
             home-manager.nixosModules.home-manager
             #lsfg-vk-flake.nixosModules.default
+            nixos-hardware.nixosModules.framework-12-13th-gen-intel
             ./hosts/nyx
           ];
         };
