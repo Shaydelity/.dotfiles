@@ -105,7 +105,7 @@ let
        -framedrop -fs "$DEV"
   '';
 
-   brightness = pkgs.writeShellScriptBin "brightness" ''
+  brightness = pkgs.writeShellScriptBin "brightness" ''
     # Taken from https://github.com/MasterDevX/linux-backlight-controller/tree/master
     backlight_class=/sys/class/backlight/
     monitor=DP-1
@@ -133,8 +133,6 @@ let
         echo $new_brightness > $brightness
     fi
   '';
-
-
 
 
 in

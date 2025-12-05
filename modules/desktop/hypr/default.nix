@@ -176,14 +176,14 @@
             "$mainMod ALT, S, exec, grim - | wl-copy"
 
             # Functional keybinds
-           ",XF86AudioMicMute,exec,pamixer --default-source -t"
-           ",XF86MonBrightnessDown,exec,bash brightness - 5"
-           ",XF86MonBrightnessUp,exec,bash brightness + 5"
-           ",XF86AudioMute,exec,pamixer -t"
-           ",XF86AudioLowerVolume,exec,pamixer -d 5"
-           ",XF86AudioRaiseVolume,exec,pamixer -i 5"
-           ",XF86AudioPlay,exec,playerctl play-pause"
-           ",XF86AudioPause,exec,playerctl play-pause"
+            ",XF86AudioMicMute,exec,pamixer --default-source -t"
+            ",XF86MonBrightnessDown,exec,bash brightness - 5"
+            ",XF86MonBrightnessUp,exec,bash brightness + 5"
+            ",XF86AudioMute,exec,pamixer -t"
+            ",XF86AudioLowerVolume,exec,pamixer -d 5"
+            ",XF86AudioRaiseVolume,exec,pamixer -i 5"
+            ",XF86AudioPlay,exec,playerctl play-pause"
+            ",XF86AudioPause,exec,playerctl play-pause"
 
             # to switch between windows in a floating workspace
             "$mainMod,Tab,cyclenext"

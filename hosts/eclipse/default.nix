@@ -1,5 +1,11 @@
 { config, pkgs, zstd, nix-flatpak, hyprland, inputs, ... }:
 
+# let
+#     globals = {
+#     user = "shaydelity";
+#   };
+# in
+
 {
   imports = [
     ./hardware.nix

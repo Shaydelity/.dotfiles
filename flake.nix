@@ -30,23 +30,25 @@
       url = "github:hyprwm/hyprland-plugins";
       inputs.hyprland.follows = "hyprland";
     };
-
-    # Hyprland Workspaces per Monitor
-    #split-monitor-workspaces = {
-    #  url = "github:Duckonaut/split-monitor-workspaces";
-    #  inputs.hyprland.follows = "hyprland";
-    #};
-    hypr-dynamic-cursors = {
-      url = "github:VirtCode/hypr-dynamic-cursors";
+    split-monitor-workspaces = {
+      url = "github:Duckonaut/split-monitor-workspaces";
       inputs.hyprland.follows = "hyprland";
     };
 
-    # Framework Hardware (Will be relevant in the future ;3)
-    #nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    #fw-fanctrl = {
-    #  url = "github:TamtamHero/fw-fanctrl/packaging/nix";
-    #  inputs.nixpkgs.follows = "nixpkgs";
-    #};
+    # Framework stuff
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+#     fw-fanctrl = {
+#       url = "github:TamtamHero/fw-fanctrl/packaging/nix";
+#       inputs.nixpkgs.follows = "nixpkgs";
+#     };
+
+    # Lossless scaling
+    lsfg-vk-flake.url = "github:pabloaul/lsfg-vk-flake/main";
+    lsfg-vk-flake.inputs.nixpkgs.follows = "nixpkgs";
+
+    nix-index-database.url = "github:nix-community/nix-index-database";
+    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
+  };
 
     # Lossless scaling -
     # Steam-App required, needs to be installed in standard directory, start game, need to add profile in LSFG-VK and adjust scaling
@@ -58,85 +60,27 @@
     # Is useful if you have an error with missing dependencies.
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
     nix-index-database.url = "github:nix-community/nix-index-database";
+
+    # Surface Linux Compatibility
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
 
   outputs =
-    {
-      self,
-      nixpkgs,
-      nixpkgs-unstable,
-      nixpkgs-xr,
-      home-manager,
-      nix-flatpak,
-      catppuccin,
-      hyprland,
-      #split-monitor-workspaces,
-      nixos-hardware,
-      #fw-fanctrl,
-      #lsfg-vk-flake,
-      nix-index-database,
-      ...
-    }@inputs:
+    { self, ... }@inputs:
     let
-      system = "x86_64-linux";
-      pkgs = import nixpkgs { system = system; };
-      pkgs-unstable = import nixpkgs-unstable { system = system; };
-    in {
-      nixosConfigurations = {
-        shaydelith = nixpkgs.lib.nixosSystem {
-          specialArgs = {
-            inherit inputs;
-            inherit home-manager;
-            inherit hyprland;
-            inherit nix-flatpak;
-            inherit catppuccin;
-            inherit pkgs-unstable;
-          };
-          modules = [
-            catppuccin.nixosModules.catppuccin
-            nix-index-database.nixosModules.nix-index
-            home-manager.nixosModules.home-manager
-            #lsfg-vk-flake.nixosModules.default
-            ./hosts/shaydelith
-          ];
-        };
-        eclipse = nixpkgs.lib.nixosSystem {
-          specialArgs = {
-            inherit inputs;
-            inherit home-manager;
-            inherit pkgs-unstable;
-            inherit hyprland;
-            inherit nix-flatpak;
-            inherit catppuccin;
-          };
-          modules = [
-            catppuccin.nixosModules.catppuccin
-            nix-index-database.nixosModules.nix-index
-            home-manager.nixosModules.home-manager
-            #lsfg-vk-flake.nixosModules.default
-            #nixos-hardware.nixosModules.microsoft-surface-common
-            ./hosts/eclipse
-          ];
-        };
-        nyx = nixpkgs.lib.nixosSystem {
-          specialArgs = {
-            inherit inputs;
-            inherit home-manager;
-            inherit pkgs-unstable;
-            inherit hyprland;
-            inherit nix-flatpak;
-            inherit catppuccin;
-          };
-          modules = [
-            catppuccin.nixosModules.catppuccin
-            nix-index-database.nixosModules.nix-index
-            home-manager.nixosModules.home-manager
-            #lsfg-vk-flake.nixosModules.default
-            nixos-hardware.nixosModules.framework-12-13th-gen-intel
-            ./hosts/nyx
-          ];
-        };
+      globals = {
+        user = "shaydelity";
+        install-dir = "~/.dotfiles"; # No trailing slash!
       };
-    };
+      flake = self;
+    in
+    rec {
+      formatter.x86_64-linux = inputs.nixpkgs.legacyPackages.x86_64-linux.nixfmt-tree;
+
+      nixosConfigurations = {
+        shaydelith = import ./hosts/shaydelith { inherit flake inputs globals; };
+        eclipse = import ./hosts/eclipse { inherit flake inputs globals; };
+        nyx= import ./hosts/nyx { inherit flake inputs globals; };
+      };
+  };
 }

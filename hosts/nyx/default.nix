@@ -1,4 +1,10 @@
-{ config, pkgs, zstd, nix-flatpak, hyprland, inputs, ... }:
+{ globals, config, pkgs, zstd, nix-flatpak, hyprland, inputs, ... }:
+
+# let
+#     globals = {
+#     user = "shaydelity";
+#   };
+# in
 
 {
   imports = [
