@@ -50,6 +50,7 @@
     firefox
     vivaldi
     alvr
+    krita
     kdePackages.dolphin # dolphin
     kdePackages.kate # kate
     kdePackages.ark # ark

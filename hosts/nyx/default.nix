@@ -132,7 +132,7 @@
 
     monitor = [
        # Also update this in the systemd charger service.
-      "eDP-1, 1920x1200@60, auto, 1.25"
+      "eDP-1, 1920x1200@60, auto, 1"
     ];
   };
 
