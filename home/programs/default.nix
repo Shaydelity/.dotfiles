@@ -18,6 +18,7 @@
     ./micro
     ./mpv
     ./vscodium
+    ./gale.nix
   ];
 
 
@@ -95,7 +96,6 @@
     kdePackages.gwenview
     # steam - Installed in system config for the system access.
     pkgs-unstable.r2modman
-    pkgs-unstable.gale # Gdk-Message: 16:33:38.349: Error 71 (Protocol error) dispatching to Wayland display.
     godot
 
     jellyfin-media-player
