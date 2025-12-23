@@ -23,6 +23,16 @@ let
     };
   };
 
+  galeWrapped = pkgs.runCommand "gale-appimage" {
+    nativeBuildInputs = [ pkgs.makeWrapper ];
+  } ''
+    mkdir -p $out/bin
+    makeWrapper \
+      ${galeAppImage}/bin/gale-appimage \
+      $out/bin/gale-appimage \
+      --set WEBKIT_DISABLE_DMABUF_RENDERER 1
+  '';
+
   galeIcon = pkgs.fetchurl {
     url = "https://raw.githubusercontent.com/Kesomannen/gale/refs/heads/master/images/icons/app-icon.png";
     sha256 = "0yvk764lck1zg72g1jvmyqhysi09i5331hxvcwzwhp8dimkslk2x";
@@ -30,7 +40,7 @@ let
 
   galeDesktopEntry = {
     name = "Gale";
-    comment = "A modern mod manager for Thunderstore ";
+    comment = "A modern mod manager for Thunderstore.";
     exec = "gale-appimage";
     icon = "gale";
     terminal = false;
@@ -42,7 +52,7 @@ let
 in
 {
     home.packages = [
-      galeAppImage
+      galeWrapped
     ];
 
     xdg.dataFile."icons/hicolor/256x256/apps/gale.png".source = galeIcon;
