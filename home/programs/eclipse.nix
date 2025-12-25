@@ -18,6 +18,7 @@
     ./micro
     ./mpv
     ./vscodium
+    ./gale.nix
   ];
 
 

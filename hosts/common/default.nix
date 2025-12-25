@@ -85,7 +85,7 @@
   services.xserver.displayManager.gdm.enable = true; # Enable Display Manager (Log-in)
 
   # Programs
-  #programs.steam.enable = true; # Needs to be in system conf for alvr.
+  programs.steam.enable = true; # Needs to be in system conf for alvr.
   services.ollama.enable = true; # Local LLM
   virtualisation.docker.rootless.enable = true;
   virtualisation.docker.enable = true;
