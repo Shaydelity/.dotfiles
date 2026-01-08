@@ -3,6 +3,7 @@
 {
   imports = [
     ./hardware.nix
+    ./touchscreen.nix
     ../common
   ];
   # Device Name
@@ -25,16 +26,21 @@
 
 #   services.iptsd.enable = true;
 
-  # Suspend when laptop lid is closed
-  #services.logind = {
-  #  lidSwitch = "suspend";
-  #};
+    # Ignore the power key & suspend when laptop lid is closed
+#     services.logind.settings.Login = {
+#       HandleLidSwitch = "suspend";
+#       HandlePowerKey = "ignore";
+#       HandleSuspendKey = "ignore";
+#       HandleHibernateKey = "ignore";
+#     };
 
-  # Ignore the power key
-  #services.logind.settings.Login = {
-  #  HandlePowerKey = "ignore";    HandleSuspendKey = "ignore";
-  #  HandleHibernateKey = "ignore";
-  #};
+  # Disable keyoard while typing
+  environment.etc."libinput/local-overrides.quirks".text = pkgs.lib.mkForce ''
+    [Serial Keyboards]
+    MatchUdevType=keyboard
+    MatchName=keyd virtual keyboard
+    AttrKeyboardIntegration=internal
+  '';
 
   # Laptop Optimization
   #services.cpupower-gui.enable = true;
