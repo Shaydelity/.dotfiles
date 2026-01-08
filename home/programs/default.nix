@@ -59,6 +59,7 @@
   ];
 
   home.packages = ( with pkgs; [
+    zoom-us
     # GUI apps
     amberol
     zenity
