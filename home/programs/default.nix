@@ -8,6 +8,9 @@
   inputs,
   ...
 }:
+let
+  hytale-pkg = pkgs-unstable.callPackage ./hytale-launcher.nix { };
+in
 {
   imports = [
     ./btop
@@ -38,13 +41,6 @@
     };
   };
 
-  # nixpkgs-unstable = {
-  #   config = {
-  #     allowUnfree = true;
-  #     allowUnfreePredicate = (_: true);
-  #   };
-  # };
-
   # nixpkgs.config.allowUnfree = true;
   # nixpkgs-unstable.config.allowUnfree = true;
   #pks-unstable.config.allowUnfree = true;
@@ -56,6 +52,7 @@
     "com.github.tchx84.Flatseal"
     "com.vscodium.codium"
     "org.gnome.SimpleScan"
+    "org.vinegarhq.Sober"
   ];
 
   home.packages = ( with pkgs; [
@@ -96,6 +93,7 @@
     tenacity
     kdePackages.gwenview
     # steam - Installed in system config for the system access.
+    hytale-pkg
     pkgs-unstable.r2modman
     godot
 

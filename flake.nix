@@ -80,8 +80,8 @@
     }@inputs:
     let
       system = "x86_64-linux";
-      pkgs = import nixpkgs { system = system; };
-      pkgs-unstable = import nixpkgs-unstable { system = system; };
+      pkgs = import nixpkgs { system = system;  };
+      pkgs-unstable = import nixpkgs-unstable { system = system; config.allowUnfree = true; };
     in {
       nixosConfigurations = {
         shaydelith = nixpkgs.lib.nixosSystem {

@@ -24,6 +24,10 @@
     ];
   };
 
+  # VERY IMPORTANT:
+  # sudo tailscale up --operator=$USER
+  services.tailscale.enable = true;
+
   # Home Manager Program Overrides
   home-manager.users.shaydelity.home.packages = [
     pkgs.bs-manager
