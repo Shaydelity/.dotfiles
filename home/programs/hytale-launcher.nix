@@ -21,12 +21,12 @@
 }:
 
 let
-  version = "2026.01.14-cabac20";
+  version = "2026.01.15-12c5c6a";
 
   sources = {
     x86_64-linux = {
       url = "https://launcher.hytale.com/builds/release/linux/amd64/hytale-launcher-${version}.zip";
-      hash = "sha256-14Klg+B4qUTTBWfOShvmKrv8TIrjZqhX84n1A6khSPM=";
+      hash = "sha256-yobtPOLuN8fSgzA6ArOvKx+7bIPfXKnJ5jLj9gakI+k=";
     };
     aarch64-darwin = {
       url = "https://launcher.hytale.com/builds/release/darwin/arm64/hytale-launcher-${version}.zip";
