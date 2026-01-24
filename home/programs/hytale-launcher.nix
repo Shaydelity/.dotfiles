@@ -21,12 +21,12 @@
 }:
 
 let
-  version = "2026.01.21-11273a4";
+  version = "2026.01.24-997c2cb";
 
   sources = {
     x86_64-linux = {
       url = "https://launcher.hytale.com/builds/release/linux/amd64/hytale-launcher-${version}.zip";
-      hash = "sha256-PPdYmLxAVyqSkhulZXLcaEuhofCHZ4JcDJXIQ+lBhFg=";
+      hash = "sha256-p+x+dNEhMDnjVpyzrczxP/KiYkFrbU8sqbIvwtuEN80=";
     };
     aarch64-darwin = {
       url = "https://launcher.hytale.com/builds/release/darwin/arm64/hytale-launcher-${version}.zip";
