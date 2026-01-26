@@ -10,12 +10,12 @@
       with pkgs;
       [
         # Advanced creation tools
-        blender
-        blockbench
-        bitwig-studio
-        davinci-resolve
-        inkscape
-        orca-slicer
+        #blender
+        #blockbench
+        #bitwig-studio
+        #davinci-resolve
+        #inkscape
+        #orca-slicer
       ]
     );
   };

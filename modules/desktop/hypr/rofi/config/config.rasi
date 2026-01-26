@@ -1,0 +1,5 @@
+@theme "theme"
+configuration {
+    sorting-method: "fzf";
+    drun-use-desktop-cache: true;
+}

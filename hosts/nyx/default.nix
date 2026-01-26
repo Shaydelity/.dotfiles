@@ -13,8 +13,8 @@ let
     config.allowUnfree = true;
   };
 
-  # Unstabel Packages Configuration
-  pkgs-unstable = import inputs.nixpkgs-stable {
+  # Unstable Packages Configuration
+  pkgs-unstable = import inputs.nixpkgs-unstable {
     system = system;
     config.allowUnfree = true;
   };
@@ -34,20 +34,23 @@ let
   };
 
   monitor_settings = {
-    battery = "eDP-1, 1920x1200@60, auto, 1.25";
-    charging = "eDP-1, 1920x1200@60, auto, 1.25";
+    battery = "eDP-1, 1920x1200@60, auto, 1";
+    charging = "eDP-1, 1920x1200@60, auto, 1";
   };
-
 in
 inputs.nixpkgs.lib.nixosSystem rec {
   specialArgs = {
-    inherit flake inputs globals;
+    inherit
+      flake
+      inputs
+      globals
+      pkgs-unstable
+      ;
   };
 
-
   modules = [
-    inputs.nixos-hardware.nixosModules.framework-13-7040-amd
-    inputs.fw-fanctrl.nixosModules.default
+    #inputs.nixos-hardware.nixosModules.framework-13-7040-amd
+    #inputs.fw-fanctrl.nixosModules.default
     inputs.catppuccin.nixosModules.catppuccin
     inputs.nix-index-database.nixosModules.nix-index
     inputs.home-manager.nixosModules.home-manager
@@ -62,11 +65,11 @@ inputs.nixpkgs.lib.nixosSystem rec {
     "${flake}/modules/hardware/device-support/printing.nix"
     "${flake}/modules/networking"
     "${flake}/modules/programs"
-    "${flake}/modules/gaming"
+    "${flake}/modules/tmp.nix"
     {
       networking.hostName = globals.hostname;
 
-      hardware.framework.enableKmod = true;
+      #hardware.framework.enableKmod = true;
       services.fwupd.enable = true;
 
       # Ignore the power key & suspend when laptop lid is closed
@@ -168,7 +171,7 @@ inputs.nixpkgs.lib.nixosSystem rec {
           ];
         };
       };
-      
+
       # Mind the Description.
       systemd.services."charger" = {
         description = "Adjust Hyprland settings based on AC power status";
@@ -220,26 +223,3 @@ inputs.nixpkgs.lib.nixosSystem rec {
     }
   ];
 }
-
-
-  imports = [
-    ./hardware.nix
-    ../common
-  ];
-
-  # Import Home Manager
-  home-manager.extraSpecialArgs = {inherit inputs;};
-  home-manager.useUserPackages = true;
-  home-manager.users.shaydelity = {
-    imports = [
-      hyprland.homeManagerModules.default
-      nix-flatpak.homeManagerModules.nix-flatpak
-      ../../home/eclipse.nix
-    ];
-  };
-
-  # Bluetooth on Boot
-  hardware.bluetooth.enable = true; # enables support for Bluetooth
-  hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
-}
-

@@ -19,7 +19,6 @@
       with pkgs;
       [
         # Basic creation tools
-        audacity
         gimp3
 
         # Media ripping / conversion

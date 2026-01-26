@@ -70,7 +70,7 @@
       nixosConfigurations = {
         shaydelith = import ./hosts/shaydelith { inherit flake inputs flakeGlobals; };
         eclipse = import ./hosts/eclipse { inherit flake inputs flakeGlobals; };
-        nyx= import ./hosts/nyx { inherit flake inputs flakeGlobals; };
+        nyx = import ./hosts/nyx { inherit flake inputs flakeGlobals; };
       };
     };
 }

@@ -5,7 +5,7 @@
   ...
 }:
 let
-  hytale-pkg = pkgs.callPackage ./hytale-launcher.nix { };
+  #hytale-pkg = pkgs.callPackage ./hytale-launcher.nix { };
 in
 {
   imports = [
@@ -16,6 +16,7 @@ in
   programs.steam.enable = true;
   programs.corectrl.enable = true;
 
+  home-manager.users.${globals.user} = {
     home.packages = (
       with pkgs;
       [
@@ -28,10 +29,7 @@ in
         # Emulation
         cemu
 
-        # Modding
-        r2modman
-
-        hytale-pkg
+        #hytale-pkg
       ]
     );
   };

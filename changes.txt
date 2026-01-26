@@ -1,4 +1,4 @@
-Commit Details:
+Commit Details (unreliable, too many changes to oversee properly):
 
 IMPORTANT:
 - Prismlauncher removed
