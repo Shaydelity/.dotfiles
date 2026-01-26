@@ -3,11 +3,12 @@
   globals,
   ...
 }:
-  {home-manager.users.${globals.user} = {
+{
+  home-manager.users.${globals.user} = {
     programs.git = {
       enable = true;
 
-      userName  = "Shaydelity";
+      userName = "Shaydelity";
       userEmail = "shaydelity@gmail.com";
 
       extraConfig = {

@@ -26,6 +26,7 @@
       with pkgs;
       [
         zoom-us
+        alsa-utils
         # GUI apps
         amberol
         zenity
